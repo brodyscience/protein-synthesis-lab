@@ -1,0 +1,74 @@
+[
+  {
+    "id": "9c74b98b-488e-4f1e-ae84-c928a0b92af1",
+    "studentName": "Hara",
+    "timestamp": "2026-06-14T01:26:57.861Z",
+    "topic": "Protein Synthesis",
+    "mcScore": 0,
+    "mcTotal": 5,
+    "crGrades": [
+      {
+        "questionId": "cr1",
+        "title": "Blocked mRNA Export",
+        "response": "Drug prevents protein synthesis.",
+        "secondsSpent": 16,
+        "claim": {
+          "score": 1,
+          "feedback": "The claim is too vague and incomplete. While the student identifies that protein synthesis decreased, they fail to explain the specific mechanism: mRNA must exit the nucleus to reach ribosomes in the cytoplasm for translation to occur. A complete claim would state that without mRNA export, ribosomes cannot access mRNA to synthesize proteins."
+        },
+        "evidence": {
+          "score": 0,
+          "feedback": "No evidence from the scenario is cited. The student does not reference that the drug blocks mRNA export, that cells produce very little protein, or any specific details about where protein synthesis occurs."
+        },
+        "reasoning": {
+          "score": 0,
+          "feedback": "No logical reasoning is provided. The student does not connect the blocked mRNA export to the location where translation occurs (cytoplasm/ribosomes) or explain why this location matters. There is no use of relevant science vocabulary such as nucleus, cytoplasm, ribosome, transcription, or translation."
+        },
+        "tooFast": false,
+        "questionTotal": 1,
+        "questionMax": 12
+      },
+      {
+        "questionId": "cr2",
+        "title": "Codon Reading Data",
+        "response": "Missing amino acid causes diseases.",
+        "secondsSpent": 13,
+        "claim": {
+          "score": 0,
+          "feedback": "The claim does not answer the question asked. The student does not state how many amino acids will be in the finished protein (answer: 1 amino acid—only methionine, since UAA is a stop codon). Instead, they make an irrelevant statement about disease, which is not part of this question. ⚠️ Response submitted in under 15 seconds — possible copy/paste. 1 point deducted."
+        },
+        "evidence": {
+          "score": 0,
+          "feedback": "No evidence from the data table is cited. The student does not reference the specific codons (AUG, GCU, UAA), the amino acids they code for, or the function of the stop codon in terminating translation. ⚠️ Response submitted in under 15 seconds — possible copy/paste. 1 point deducted."
+        },
+        "reasoning": {
+          "score": 0,
+          "feedback": "No reasoning is provided. The student does not explain how ribosomes read codons sequentially, why stop codons terminate translation, or why only amino acids added before the stop codon are included in the protein. The response shows no understanding of codon function or translation termination. ⚠️ Response submitted in under 15 seconds — possible copy/paste. 1 point deducted."
+        },
+        "tooFast": true,
+        "tooFastMessage": "Too fast — possible copy/paste (13s)",
+        "questionTotal": 0,
+        "questionMax": 12
+      }
+    ],
+    "crClaimTotal": 1,
+    "crEvidenceTotal": 0,
+    "crReasoningTotal": 0,
+    "crTotal": 1,
+    "crMax": 24,
+    "combinedTotal": 1,
+    "combinedMax": 29,
+    "summary": {
+      "strengths": [
+        "Both responses attempt to address biology concepts related to protein synthesis"
+      ],
+      "areasToImprove": [
+        "Students must provide complete, multi-part Claim-Evidence-Reasoning responses rather than single incomplete sentences",
+        "Students need to directly cite specific data, scenarios, or diagrams provided in the question",
+        "Students must use accurate scientific vocabulary (nucleus, cytoplasm, ribosome, codon, stop codon, amino acid, transcription, translation) to explain biological processes",
+        "Students should trace through sequential processes step-by-step (e.g., reading each codon in order, identifying when translation stops) rather than making general statements",
+        "Students must ensure their claim directly answers the specific question asked"
+      ]
+    }
+  }
+]
