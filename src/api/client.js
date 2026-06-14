@@ -1,7 +1,5 @@
-const API_BASE = import.meta.env.VITE_API_URL || ''
-
 async function request(path, options = {}) {
-  const res = await fetch(`${API_BASE}${path}`, {
+  const res = await fetch(path, {
     headers: { 'Content-Type': 'application/json', ...options.headers },
     ...options,
   })
@@ -26,7 +24,7 @@ export function verifyTeacherPassword(password) {
 }
 
 export function gradeAndSaveAttempt({ studentName, mcResults, crResults }) {
-  return request('/api/grade-and-save', {
+  return request('/api/grade', {
     method: 'POST',
     body: JSON.stringify({ studentName, mcResults, crResults }),
   })
@@ -39,7 +37,7 @@ export function fetchAttempts(teacherPassword) {
 }
 
 export async function downloadAttemptsCsv(teacherPassword) {
-  const res = await fetch(`${API_BASE}/api/attempts/export.csv`, {
+  const res = await fetch('/api/attempts/export', {
     headers: { 'X-Teacher-Password': teacherPassword },
   })
   if (!res.ok) throw new Error('Failed to download CSV')

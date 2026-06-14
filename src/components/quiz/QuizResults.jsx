@@ -10,7 +10,7 @@ export default function QuizResults({ attempt, mcResults, gradingError, onTryAga
           <h2 className="text-2xl font-black text-lab-pink mb-2">Grading failed</h2>
           <p className="text-white/80 text-lg">{gradingError}</p>
           <p className="text-white/50 text-base mt-2">
-            Make sure the server is running and ANTHROPIC_API_KEY is set.
+            Make sure ANTHROPIC_API_KEY is set in your Vercel environment (or .env for local dev with vercel dev).
           </p>
         </div>
         <div className="flex flex-wrap justify-center gap-4">
