@@ -1,52 +1,18 @@
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs'
-import { join } from 'path'
-import { randomUUID } from 'crypto'
+const STORAGE_KEY = 'proteinSynthesisAttempts'
 
-const ATTEMPTS_KEY = 'attempts'
-const LOCAL_ATTEMPTS_FILE = join(process.cwd(), 'data', 'attempts.json')
-
-function ensureLocalFile() {
-  const dir = join(process.cwd(), 'data')
-  if (!existsSync(dir)) mkdirSync(dir, { recursive: true })
-  if (!existsSync(LOCAL_ATTEMPTS_FILE)) {
-    writeFileSync(LOCAL_ATTEMPTS_FILE, '[]', 'utf-8')
+export function getAttempts() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]')
+  } catch {
+    return []
   }
 }
 
-async function useKv() {
-  return Boolean(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN)
-}
-
-async function readAttemptsFromStore() {
-  if (await useKv()) {
-    const { kv } = await import('@vercel/kv')
-    return (await kv.get(ATTEMPTS_KEY)) ?? []
-  }
-
-  ensureLocalFile()
-  return JSON.parse(readFileSync(LOCAL_ATTEMPTS_FILE, 'utf-8'))
-}
-
-async function writeAttemptsToStore(attempts) {
-  if (await useKv()) {
-    const { kv } = await import('@vercel/kv')
-    await kv.set(ATTEMPTS_KEY, attempts)
-    return
-  }
-
-  ensureLocalFile()
-  writeFileSync(LOCAL_ATTEMPTS_FILE, JSON.stringify(attempts, null, 2), 'utf-8')
-}
-
-export async function getAttempts() {
-  return readAttemptsFromStore()
-}
-
-export async function saveAttempt(attempt) {
-  const attempts = await readAttemptsFromStore()
-  const record = { id: randomUUID(), ...attempt }
+export function saveAttempt(attempt) {
+  const attempts = getAttempts()
+  const record = { ...attempt, id: attempt.id ?? crypto.randomUUID() }
   attempts.push(record)
-  await writeAttemptsToStore(attempts)
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(attempts))
   return record
 }
 
@@ -155,4 +121,15 @@ export function attemptsToCsv(attempts) {
   }
 
   return [headers.join(','), ...rows.map((r) => r.map(escape).join(','))].join('\n')
+}
+
+export function downloadAttemptsCsv(attempts) {
+  const csv = attemptsToCsv(attempts)
+  const blob = new Blob([csv], { type: 'text/csv' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = 'protein-synthesis-attempts.csv'
+  a.click()
+  URL.revokeObjectURL(url)
 }

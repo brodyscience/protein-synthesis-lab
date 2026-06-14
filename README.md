@@ -24,7 +24,7 @@ Run the full stack (frontend + API routes) with Vercel CLI:
 npx vercel dev
 ```
 
-Or run the frontend only (API calls will not work):
+Or run the frontend only (grading API will not work):
 
 ```bash
 npm run dev
@@ -42,23 +42,20 @@ npm run dev
 |----------|-------------|
 | `ANTHROPIC_API_KEY` | Anthropic API key for AI grading |
 | `TEACHER_PASSWORD` | Password for teacher dashboard (default: `teacher123`) |
-| `KV_REST_API_URL` | Vercel KV URL (recommended for persistent student data in production) |
-| `KV_REST_API_TOKEN` | Vercel KV token |
 
-Without Vercel KV, student attempts are stored in `data/attempts.json` locally during development only.
+## Student data storage
+
+Student quiz attempts are stored in the browser's localStorage on each device — there is no server-side database. Teachers can view attempts and download a CSV from the teacher dashboard on the same browser where students completed the quiz.
 
 ## API routes
 
 | Route | Method | Description |
 |-------|--------|-------------|
-| `/api/grade` | POST | AI grade CR responses and save attempt |
+| `/api/grade` | POST | AI grade CR responses (returns results, does not persist) |
 | `/api/teacher/verify` | POST | Verify teacher password |
-| `/api/attempts` | GET | List student attempts (teacher auth) |
-| `/api/attempts/export` | GET | Download attempts CSV (teacher auth) |
 | `/api/health` | GET | Health check |
 
 ## Stack
 
 - React 19 + Vite 6 + Tailwind CSS 4
 - Vercel serverless functions + Anthropic SDK
-- Vercel KV (optional) for attempt storage

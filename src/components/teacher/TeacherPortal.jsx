@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from 'react'
-import { verifyTeacherPassword, fetchAttempts, downloadAttemptsCsv } from '../../api/client'
+import { verifyTeacherPassword } from '../../api/client'
+import { getAttempts, computeClassAverages, downloadAttemptsCsv } from '../../utils/attempts'
 import { formatDate } from '../../utils/scores'
 
 const TEACHER_AUTH_KEY = 'teacherAuth'
@@ -78,28 +79,17 @@ function SortHeader({ label, sortKey, sort, onSort }) {
   )
 }
 
-function TeacherDashboard({ password, onBack }) {
+function TeacherDashboard({ onBack }) {
   const [attempts, setAttempts] = useState([])
-  const [averages, setAverages] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState('')
   const [sort, setSort] = useState({ key: 'timestamp', dir: 'desc' })
 
-  const loadData = async () => {
-    setLoading(true)
-    setError('')
-    try {
-      const data = await fetchAttempts(password)
-      setAttempts(data.attempts)
-      setAverages(data.averages)
-    } catch (err) {
-      setError(err.message)
-    } finally {
-      setLoading(false)
-    }
+  const loadData = () => {
+    setAttempts(getAttempts())
   }
 
-  useEffect(() => { loadData() }, [password])
+  useEffect(() => { loadData() }, [])
+
+  const averages = useMemo(() => computeClassAverages(attempts), [attempts])
 
   const handleSort = (key) => {
     setSort((prev) => ({
@@ -127,12 +117,13 @@ function TeacherDashboard({ password, onBack }) {
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div>
           <h1 className="text-3xl font-black text-white">Teacher dashboard</h1>
-          <p className="text-white/60 text-lg">Protein synthesis — student attempts</p>
+          <p className="text-white/60 text-lg">Protein synthesis — student attempts on this device</p>
         </div>
         <div className="flex gap-3">
           <button
-            onClick={() => downloadAttemptsCsv(password)}
-            className="btn-game px-6 py-2 rounded-xl font-black text-indigo-900 text-lg"
+            onClick={() => downloadAttemptsCsv(attempts)}
+            disabled={attempts.length === 0}
+            className="btn-game px-6 py-2 rounded-xl font-black text-indigo-900 text-lg disabled:opacity-40"
           >
             Download CSV
           </button>
@@ -151,7 +142,7 @@ function TeacherDashboard({ password, onBack }) {
         </div>
       </div>
 
-      {averages && averages.count > 0 && (
+      {averages.count > 0 && (
         <div className="game-card rounded-2xl p-5 mb-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
           {[
             { label: 'Students', value: averages.count, fmt: (v) => v },
@@ -169,12 +160,12 @@ function TeacherDashboard({ password, onBack }) {
         </div>
       )}
 
-      {loading && <p className="text-white/60 text-lg text-center">Loading…</p>}
-      {error && <p className="text-lab-pink text-lg font-bold text-center">{error}</p>}
-
-      {!loading && sorted.length === 0 && (
+      {sorted.length === 0 && (
         <div className="game-card rounded-2xl p-8 text-center">
-          <p className="text-white/60 text-lg">No student attempts yet.</p>
+          <p className="text-white/60 text-lg">No student attempts on this device yet.</p>
+          <p className="text-white/40 text-base mt-2">
+            Attempts are saved in the browser when students complete the quiz on this computer.
+          </p>
         </div>
       )}
 
@@ -230,5 +221,5 @@ export default function TeacherPortal({ onBack }) {
     return <TeacherLogin onLogin={setPassword} />
   }
 
-  return <TeacherDashboard password={password} onBack={onBack} />
+  return <TeacherDashboard onBack={onBack} />
 }

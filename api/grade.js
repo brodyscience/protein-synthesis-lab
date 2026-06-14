@@ -1,5 +1,5 @@
 import { gradeConstructedResponses, buildAttemptRecord } from '../lib/grading.js'
-import { saveAttempt } from '../lib/storage.js'
+import { randomUUID } from 'crypto'
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -22,9 +22,8 @@ export default async function handler(req, res) {
       mcResults,
       gradingResult,
     })
-    const saved = await saveAttempt(attempt)
 
-    return res.status(200).json(saved)
+    return res.status(200).json({ id: randomUUID(), ...attempt })
   } catch (err) {
     console.error('Grade error:', err)
     return res.status(500).json({ error: err.message || 'Grading failed' })

@@ -5,7 +5,8 @@ import MultipleChoicePart from './MultipleChoicePart'
 import ConstructedResponsePart from './ConstructedResponsePart'
 import QuizResults from './QuizResults'
 import GradingLoader from './GradingLoader'
-import { gradeAndSaveAttempt } from '../../api/client'
+import { gradeAttempt } from '../../api/client'
+import { saveAttempt } from '../../utils/attempts'
 import { CR_QUESTIONS } from '../../data/quizQuestions'
 
 const PHASE = {
@@ -46,11 +47,12 @@ export default function Quiz({ onBack }) {
         }
       })
 
-      const saved = await gradeAndSaveAttempt({
+      const graded = await gradeAttempt({
         studentName,
         mcResults,
         crResults: enrichedCr,
       })
+      const saved = saveAttempt(graded)
       setAttempt(saved)
       setPhase(PHASE.RESULTS)
     } catch (err) {
