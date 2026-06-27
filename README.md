@@ -1,45 +1,44 @@
-# Hi, I’m Bahar H. Brody
+# Protein Synthesis Lab
 
-**Science Teacher → AI Science Learning Strategist**
-Brooklyn, NY
+Interactive AI-powered lab simulation for 9th grade Biology.
+Covers DNA transcription and translation.
+Built with Vite + React, deployed on Vercel.
+Includes a password-protected teacher dashboard.
 
-## What I Do
+**Live app:** https://protein-synthesis-lab.vercel.app
 
-I teach Life Science: Biology (9th grade) and Earth & Space Science
-(10th grade) at Creators Academy in Brooklyn — a small public school
-serving an underrepresented urban community.
+## What It Does
 
-I also build AI-powered educational tools using Anthropic’s API.
+Students move through a guided simulation covering:
+1. Transcription — DNA → mRNA
+2. Translation — mRNA → amino acid chain
+3. AI-assisted reflection — Claude provides targeted feedback
 
-Those two things are not separate. My classroom is my testing
-environment. My students are the real feedback loop.
+The teacher dashboard shows real-time student progress,
+common misconceptions flagged by AI, and class-wide completion data.
 
+## Why I Built It
 
-## What I’ve Built
+Protein synthesis is one of the highest-failure topics on the
+NYS Biology Regents. Students memorize the steps but can't apply them.
+This lab forces application at each stage before moving on —
+and the AI feedback catches misconceptions a teacher circulating
+a room would miss.
 
-| Project | What It Does | Stack |
-|---|---|---|
-| Biology CER Practice Lab | AI feedback on student scientific writing | Python, Streamlit, Anthropic API |
-| Protein Synthesis Lab | Interactive lab simulation + teacher dashboard | Vite, React, Vercel, Anthropic API |
+## Stack
 
+- Vite + React (frontend)
+- Vercel (deployment)
+- Anthropic API — Claude (student feedback + misconception detection)
+- Password-protected teacher dashboard
 
-## How I Work
+## Classroom Context
 
-I use Cursor Pro with natural language prompting as my primary
-development workflow. I am not a traditional software engineer.
-I am an educator who builds — and I think that’s rarer and
-more useful than either alone.
+- School: Creators Academy, Brooklyn NY (NYC DOE District 13)
+- Grade: 9th grade Life Science: Biology
+- Aligned to NYS Biology Regents standards
 
+## Teacher Access
 
-## What I’m Working Toward
-
-Transitioning toward AI curriculum development, educator training,
-and program design at scale. Currently pursuing:
-- Boston University Wheelock: Graduate Certificate in AI and Education
-- IBM Quantum Computing for Educators certification
-- Anthropic AI Fluency + Claude 101
-
-## Connect
-
-If you’re building at the intersection of AI and equitable education,
-let’s talk.
+Dashboard at /dashboard. Contact me if you're an educator
+interested in piloting this tool.
