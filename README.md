@@ -2,7 +2,7 @@
 
 Interactive AI-powered lab simulation for 9th grade Biology.
 Covers DNA transcription and translation.
-Built with Vite + React, deployed on Vercel.
+Built with Vite and React, deployed on Vercel.
 Includes a password-protected teacher dashboard.
 
 **Live app:** https://protein-synthesis-lab.vercel.app
@@ -27,14 +27,14 @@ a room would miss.
 
 ## Stack
 
-- Vite + React (frontend)
+- Vite and React (frontend)
 - Vercel (deployment)
-- Anthropic API — Claude (student feedback + misconception detection)
+- Anthropic API; Claude (student feedback and misconception detection)
 - Password-protected teacher dashboard
 
 ## Classroom Context
 
-- School: Creators Academy, Brooklyn NY (NYC DOE District 13)
+- School: NYS Public High School
 - Grade: 9th grade Life Science: Biology
 - Aligned to NYS Biology Regents standards
 
